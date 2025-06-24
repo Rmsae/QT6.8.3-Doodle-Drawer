@@ -1,5 +1,7 @@
 #include "websockethandler.h"
 #include <QDebug>
+#include <random>
+
 WebSocketHandler::WebSocketHandler(QObject *parent)
     : QObject{parent}
 {
@@ -27,6 +29,18 @@ WebSocketHandler::~WebSocketHandler()
 void WebSocketHandler::onNewSocketConnection()
 {
     qDebug() << QStringLiteral("New client connected!");
+
+    std::random_device rd;
+    std::default_random_engine generator;
+    generator.seed(rd());
+
+    std::uniform_int_distribution<int> idGenerator(10000, 9999);
+    QString newClientID = QString::number(idGenerator(generator));
+
+    while (m_clientList.keys().contains(newClientID)) {
+        newClientID = QString::number(idGenerator(generator));
+    }
+
     auto nextClient = m_socketServer->nextPendingConnection();
     nextClient->setParent(this);
 
@@ -37,7 +51,8 @@ void WebSocketHandler::onNewSocketConnection()
 
     connect(nextClient, &QWebSocket::disconnected, this, &WebSocketHandler::onSocketDisconnected);
 
-    m_clientList.append(nextClient);
+    //m_clientList.append(nextClient);
+    m_clientList[newClientID] = nextClient;
 }
 
 void WebSocketHandler::onTextMessageReceived(QString message)
@@ -49,6 +64,17 @@ void WebSocketHandler::onSocketDisconnected()
 {
     auto client = qobject_cast<QWebSocket *>(sender());
     if (client) {
-        m_clientList.removeAll(client);
+        //m_clientList.removeAll(client);
+        if (client) {
+            for (QMap<QString, QWebSocket *>::iterator mapIterator = m_clientList.begin();
+                 mapIterator != m_clientList.end();
+                 mapIterator++) {
+                if (mapIterator.value() == client) {
+                    QString uid = mapIterator.key();
+                    m_clientList.remove(uid);
+                    client->deleteLater();
+                }
+            }
+        }
     }
 }
