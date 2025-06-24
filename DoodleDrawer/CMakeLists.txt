@@ -30,6 +30,7 @@ qt_add_qml_module(DoodleDrawerClient
     SOURCES
         DoodleDrawerClient/Controllers/websockethandler.h
         DoodleDrawerClient/Controllers/websockethandler.cpp
+        QML_FILES DoodleDrawerClient/Ui/GameSelectScreen.qml
 )
 
 set_target_properties(DoodleDrawerClient PROPERTIES
