@@ -26,6 +26,7 @@ void WebSocketHandler::connectToServer(QString hostAddress)
 void WebSocketHandler::onConnected()
 {
     qDebug() << "Client App: Connection established";
+    m_webSocket->sendTextMessage("Hello World!");
 }
 
 void WebSocketHandler::onTextMessageReceived(QString message)

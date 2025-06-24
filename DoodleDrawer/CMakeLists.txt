@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 # Qt-Module laden
-find_package(Qt6 COMPONENTS Core Gui Qml Quick WebSockets REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Qml Quick WebSockets QuickControls2 REQUIRED)
 message("Qt6 gefunden: ${Qt6_FOUND}")
 message("Qt Version: ${QT_VERSION}")
 
@@ -24,7 +24,9 @@ qt_add_qml_module(DoodleDrawerClient
     URI DoodleDrawerClient
     VERSION 1.0
     QML_FILES
-        DoodleDrawerClient/Main.qml
+        DoodleDrawerClient/Ui/Main.qml
+        DoodleDrawerClient/Ui/MainMenuScreen.qml
+        DoodleDrawerClient/Ui/GameButton.qml
     SOURCES
         DoodleDrawerClient/Controllers/websockethandler.h
         DoodleDrawerClient/Controllers/websockethandler.cpp
@@ -44,6 +46,7 @@ target_link_libraries(DoodleDrawerClient PRIVATE
     Qt6::Qml
     Qt6::Quick
     Qt6::WebSockets
+    Qt6::QuickControls2
 )
 
 # Server ausführbare Datei

@@ -8,6 +8,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    qputenv("QT_QUICK_CONTROLS_STYLE", "Basic"); // Oder "Material", "Fusion"
+
     WebSocketHandler socketHandler;
 
     QQmlApplicationEngine engine;
