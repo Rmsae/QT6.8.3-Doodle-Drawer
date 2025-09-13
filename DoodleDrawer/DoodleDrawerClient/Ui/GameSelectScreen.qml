@@ -34,8 +34,9 @@ Item {
         buttonTextPixelSize: 48
         width: 336
         height: 105
-        // onButtonClicked: gameManager.createGameRequest()
-        onButtonClicked: console.log("Button Create Game clicked!")
+
+        onButtonClicked: webSocketHandler.connectToServer("ws://127.0.0.1:8585")
+        //onButtonClicked: console.log("Button Create Game clicked!")
     }
 
     GameButton {

@@ -52,12 +52,14 @@ void WebSocketHandler::onNewSocketConnection()
     connect(nextClient, &QWebSocket::disconnected, this, &WebSocketHandler::onSocketDisconnected);
 
     //m_clientList.append(nextClient);
+    nextClient->sendTextMessage("type:uniqueID;payLoad:" + newClientID);
     m_clientList[newClientID] = nextClient;
 }
 
 void WebSocketHandler::onTextMessageReceived(QString message)
 {
-    qDebug() << QStringLiteral("Received new client message: ") << message;
+    qDebug() << QStringLiteral("Server received: ") << message;
+    emit newMessageToProcess(message);
 }
 
 void WebSocketHandler::onSocketDisconnected()

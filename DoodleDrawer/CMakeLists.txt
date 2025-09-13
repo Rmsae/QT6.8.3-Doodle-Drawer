@@ -10,6 +10,11 @@ set(CMAKE_AUTOUIC ON)
 
 # Qt-Module laden
 find_package(Qt6 COMPONENTS Core Gui Qml Quick WebSockets QuickControls2 REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 message("Qt6 gefunden: ${Qt6_FOUND}")
 message("Qt Version: ${QT_VERSION}")
 
@@ -31,6 +36,9 @@ qt_add_qml_module(DoodleDrawerClient
         DoodleDrawerClient/Controllers/websockethandler.h
         DoodleDrawerClient/Controllers/websockethandler.cpp
         QML_FILES DoodleDrawerClient/Ui/GameSelectScreen.qml
+        SOURCES
+        SOURCES
+        SOURCES Controllers/messageprocesshandler.h Controllers/messageprocesshandler.cpp
 )
 
 set_target_properties(DoodleDrawerClient PROPERTIES
@@ -49,6 +57,9 @@ target_link_libraries(DoodleDrawerClient PRIVATE
     Qt6::WebSockets
     Qt6::QuickControls2
 )
+target_link_libraries(DoodleDrawerClient PRIVATE Qt6::Core)
+target_link_libraries(DoodleDrawerClient PRIVATE Qt6::Core)
+target_link_libraries(DoodleDrawerClient PRIVATE Qt6::Core)
 
 # Server ausführbare Datei
 qt_add_executable(DoodleDrawerServer
@@ -57,6 +68,8 @@ qt_add_executable(DoodleDrawerServer
     DoodleDrawerServer/gamemanager.cpp
     DoodleDrawerServer/websockethandler.h
     DoodleDrawerServer/websockethandler.cpp
+    DoodleDrawerServer/gamelobbyhandler.h DoodleDrawerServer/gamelobbyhandler.cpp
+    DoodleDrawerServer/messageprocessorhandler.h DoodleDrawerServer/messageprocessorhandler.cpp
 )
 
 set_target_properties(DoodleDrawerServer PROPERTIES
@@ -68,6 +81,8 @@ target_link_libraries(DoodleDrawerServer PRIVATE
     Qt6::Core
     Qt6::WebSockets
 )
+target_link_libraries(DoodleDrawerServer PRIVATE Qt6::Core)
+target_link_libraries(DoodleDrawerServer PRIVATE Qt6::Core)
 
 # Installation
 include(GNUInstallDirs)

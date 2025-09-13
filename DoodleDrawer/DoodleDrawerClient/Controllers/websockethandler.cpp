@@ -3,6 +3,7 @@
 
 WebSocketHandler::WebSocketHandler(QObject *parent)
     : QObject{parent}
+    , m_clientID(QString())
 {
     m_webSocket = new QWebSocket;
     connect(m_webSocket, &QWebSocket::connected, this, &WebSocketHandler::onConnected);
@@ -26,7 +27,7 @@ void WebSocketHandler::connectToServer(QString hostAddress)
 void WebSocketHandler::onConnected()
 {
     qDebug() << "Client App: Connection established";
-    m_webSocket->sendTextMessage("Hello World!");
+    m_webSocket->sendTextMessage("type:createGame;payLoad:0");
 }
 
 void WebSocketHandler::onTextMessageReceived(QString message)

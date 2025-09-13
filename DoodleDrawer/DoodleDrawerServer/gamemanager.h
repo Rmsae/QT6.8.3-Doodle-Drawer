@@ -2,6 +2,7 @@
 #define GAMEMANAGER_H
 
 #include <QObject>
+#include "messageprocessorhandler.h"
 #include "websockethandler.h"
 
 class GameManager : public QObject
@@ -15,6 +16,7 @@ signals:
 
 private:
     WebSocketHandler *m_socketHandler;
+    MessageProcessorHandler *m_messageProcessHandler;
 };
 
 #endif // GAMEMANAGER_H

@@ -19,6 +19,7 @@ public slots:
 signals:
 private:
     QWebSocket *m_webSocket;
+    QString m_clientID;
 };
 
 #endif // WEBSOCKETHANDLER_H
